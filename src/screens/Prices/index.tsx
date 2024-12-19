@@ -88,7 +88,15 @@ const CryptoListScreen = ({ navigation }: { navigation: any }) => {
         {item.name} ({item.symbol})
       </Text>
       <Text style={styles.cryptoPrice}>${item.price_usd}</Text>
-      <Text style={styles.cryptoChange}>{item.percent_change_24h}% (24h)</Text>
+      <Text
+        style={
+          parseFloat(item.percent_change_24h) < 0
+            ? styles.cryptoChangeNegative
+            : styles.cryptoChange
+        }
+      >
+        {item.percent_change_24h}% (24h)
+      </Text>
     </TouchableOpacity>
   );
 
@@ -154,6 +162,10 @@ const styles = StyleSheet.create({
   cryptoChange: {
     fontSize: 12,
     color: "green",
+  },
+  cryptoChangeNegative: {
+    fontSize: 12,
+    color: "red",
   },
   overlay: {
     position: "absolute",
